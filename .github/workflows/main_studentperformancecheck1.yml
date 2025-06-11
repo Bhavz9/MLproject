@@ -29,5 +29,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'studentperformancecheck1'
-          images: 'testdockerbhavz.azurecr.io/studentperformance:latest'
+          app-name: studentperformancecheck1
+          slot-name: Production
+          images: testdockerbhavz.azurecr.io/studentperformance:latest

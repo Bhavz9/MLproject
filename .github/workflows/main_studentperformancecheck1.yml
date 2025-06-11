@@ -1,4 +1,4 @@
-name: Azure Container Deploy
+name: Deploy to Azure Web App (Docker)
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,9 +18,16 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy to Azure Web App for Containers
+      - name: Docker Login
+        run: echo ${{ secrets.ACR_PASSWORD }} | docker login testdockerbhavz.azurecr.io -u testdockerbhavz -p ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t testdockerbhavz.azurecr.io/studentperformance:latest .
+          docker push testdockerbhavz.azurecr.io/studentperformance:latest
+
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: studentperformancecheck1          # e.g., mlprojectwebapp
-          slot-name: Production
-          images: testdockerbhavz.azurecr.io/studentperformance:latest          # e.g., bhavz9/mlproject:latest
+          app-name: studentperformancecheck1
+          images: testdockerbhavz.azurecr.io/studentperformance:latest

@@ -31,4 +31,5 @@ jobs:
         with:
           app-name: studentperformancecheck1
           slot-name: Production
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           images: testdockerbhavz.azurecr.io/studentperformance:latest

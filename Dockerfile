@@ -17,5 +17,5 @@ RUN pip install --upgrade pip && pip install --prefer-binary --no-cache-dir -r r
 
 # ✅ Copy the rest of your app code
 COPY . .
-
+EXPOSE 5000
 CMD ["python3", "app.py"]

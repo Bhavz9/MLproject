@@ -1,4 +1,4 @@
-name: Azure Login Test
+name: Azure Container Deploy
 
 on:
   push:
@@ -6,16 +6,21 @@ on:
       - main
 
 jobs:
-  login-test:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Login to Azure
+      - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Show Azure account info
-        run: az account show
+      - name: Deploy to Azure Web App for Containers
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: studentperformancecheck1          # e.g., mlprojectwebapp
+          slot-name: Production
+          images: testdockerbhavz.azurecr.io/studentperformance:latest          # e.g., bhavz9/mlproject:latest

@@ -1,17 +1,13 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Azure Deploy Test
+name: Azure Login Test
 
 on:
   push:
     branches:
-      - main  # or your deployment branch
+      - main
 
 jobs:
-  build-and-deploy:
+  login-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
